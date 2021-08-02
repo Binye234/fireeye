@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="cn.boood.fireeye.dao.SensitiveWordsMapper">
+  <resultMap id="sensitiveWords" type="cn.boood.fireeye.mybatis.entity.SensitiveWords">
+      <id property="taskId" column="task_ID"/>
+      <result property="swId" column="sw_ID"/>
+      <result property="swWords" column="sw_words"/>
+      <result property="swUrl" column="sw_url"/>
+      <result property="swContent" column="sw_content"/>
+      <result property="swTime" column="sw_time"/>
+  </resultMap>
+
+    <select id="getSensitiveWords" resultMap="sensitiveWords">
+        select * from sensitive_words where task_ID = #{taskId}
+    </select>
+
+    <insert id="insertSensitiveWords" parameterType="cn.boood.fireeye.mybatis.entity.SensitiveWords">
+        insert into sensitive_words(task_ID,sw_ID,sw_words,sw_url,sw_content,sw_time)
+        values(#{sensitiveWords.taskId},#{sensitiveWords.swId},#{sensitiveWords.swWords},#{sensitiveWords.swUrl},#{sensitiveWords.swContent},#{sensitiveWords.swTime})
+    </insert>
+</mapper>

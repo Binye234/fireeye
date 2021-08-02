@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="cn.boood.fireeye.dao.TaskMapper">
+    <resultMap id="task" type="cn.boood.fireeye.mybatis.entity.TaskInfo">
+        <id property="taskId" column="task_ID" />
+        <result property="taskName" column="task_name"/>
+        <result property="taskTime" column="task_time"/>
+        <result property="taskUrl" column="task_url"/>
+    </resultMap>
+<!--    插入任务记录-->
+    <insert id="insertTask" parameterType="cn.boood.fireeye.mybatis.entity.TaskInfo">
+        insert into task (task_ID,task_name,task_time,task_url) values (#{taskInfo.taskId},#{taskInfo.taskName},#{taskInfo.taskTime},#{taskInfo.taskUrl})
+    </insert>
+<!--    查询任务记录-->
+    <select id="getTaskInfos" parameterType="map" resultMap="task">
+        select * from task
+        <where>
+            <if test="url != null and url != ''">
+                and task_url like concat('%',#{url},'%')
+            </if>
+            <if test="name != null and name != ''">
+                and task_name like concat('%',#{name},'%')
+            </if>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <title>火眼敏感词</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>火眼敏感词监测系统</h1>
+      <h1>登录</h1>
+<!--      <form th:action="@{/loginCheck}" method="post">-->
+      <div>
+        <div class="form-control">
+          <input type="text" name="username" id="username" required>
+          <label>用户名</label>
+          <!-- <label>
+            <span style="transition-delay: 0ms">E</span>
+              <span style="transition-delay: 50ms">m</span>
+              <span style="transition-delay: 100ms">a</span>
+              <span style="transition-delay: 150ms">i</span>
+              <span style="transition-delay: 200ms">l</span>
+        </label> -->
+        </div>
+
+        <div class="form-control">
+          <input type="password" name="password" id="pwd" required>
+          <label>密码</label>
+        </div>
+        
+         <div class="form-control">
+            <input type="text" name="code" id="code" required>
+            <label>验证码</label>
+          </div>
+          <img id="verificationCodeImg" src="/code" style="cursor: pointer;" title="看不清？换一张" />
+          <p id="msg" style="color: red"></p>
+
+
+        <button class="btn" id="bottom-text">确定</button>
+      </div>
+    </div>
+    <script th:src="@{/js/jquery-1.11.2.min.js}"></script>
+    <script th:src="@{/js/login.js}"></script>
+  </body>
+</html>

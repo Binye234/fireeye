@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="cn.boood.fireeye.dao.UserMapper">
+    <resultMap id="user" type="cn.boood.fireeye.mybatis.entity.AdminUser">
+        <id property="id" column="au_ID"/>
+        <result property="username" column="user_name"/>
+        <result property="password" column="user_password"/>
+    </resultMap>
+
+    <select id="getAdminUser" resultMap="user" >
+        select * from admin_user where user_name = #{name}
+    </select>
+
+    <update id="updateAdminUser">
+        update admin_user set user_password = #{password} where user_name = #{name}
+    </update>
+</mapper>
