@@ -1,14 +1,12 @@
 package cn.boood.fireeye.controller;
 
 import cn.boood.fireeye.mybatis.entity.AdminUser;
-import cn.boood.fireeye.service.impl.LoginImpl;
+import cn.boood.fireeye.service.impl.LoginServiceImpl;
 import cn.boood.fireeye.utils.PublicUtil;
-import cn.boood.fireeye.vo.LoginMsg;
+import cn.boood.fireeye.vo.SystemMsg;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +31,7 @@ public class LoginController {
     @Autowired
     private DefaultKaptcha defaultKaptcha;
     @Autowired
-    private LoginImpl loginImpl;
+    private LoginServiceImpl loginImpl;
     /**
      * 登录页
      * @return
@@ -53,15 +51,13 @@ public class LoginController {
      */
     @ResponseBody
     @PostMapping(value = "/loginCheck", produces = {"application/json;charset=UTF-8"})
-    public String loginCheck(String username, String password, String code, HttpSession session) throws JsonProcessingException {
-        ObjectMapper mapper=new ObjectMapper();
-        LoginMsg msg=new LoginMsg();
-
+    public SystemMsg loginCheck(String username, String password, String code, HttpSession session) throws JsonProcessingException {
+        SystemMsg msg=new SystemMsg();
         if(!code.equals(session.getAttribute("verificationCode"))){
             msg.setCode("302");
             msg.setMsg("验证码错误");
             session.removeAttribute("verificationCode");
-            return mapper.writeValueAsString(msg);
+            return msg;
         }
 
         AdminUser user=loginImpl.getAdminUser(username);
@@ -70,22 +66,22 @@ public class LoginController {
             msg.setCode("301");
             msg.setMsg("用户名或密码错误");
             session.removeAttribute("verificationCode");
-            return mapper.writeValueAsString(msg);
+            return msg;
         }
 
         if(!user.getPassword().equals(PublicUtil.getMD5Hash(password))){
             msg.setCode("301");
             msg.setMsg("用户名或密码错误");
             session.removeAttribute("verificationCode");
-            return mapper.writeValueAsString(msg);
+            return msg;
         }
 
         session.removeAttribute("verificationCode");
         session.setAttribute("user",user);
 
         msg.setCode("200");
-        msg.setMsg("/admin/home");
-        return mapper.writeValueAsString(msg);
+        msg.setMsg("/system/home");
+        return msg;
     }
 
     /**

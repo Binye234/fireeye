@@ -1,5 +1,6 @@
 package cn.boood.fireeye.utils;
 
+import cn.boood.fireeye.cache.WordsCache;
 import cn.hutool.dfa.WordTree;
 import cn.hutool.http.HtmlUtil;
 
@@ -91,5 +92,14 @@ public class DFAUtil {
         Set<String> set=new HashSet<>();
         set.addAll(list);
         return set;
+    }
+
+    /**
+     * 匹配文本内的关键字，返回匹配出的集合
+     * @param text 文本
+     * @return 返回匹配的集合
+     */
+    static public List<String> matchKey(String text) {
+        return WordsCache.getWordTree().matchAll(text, -1, true, true);
     }
 }

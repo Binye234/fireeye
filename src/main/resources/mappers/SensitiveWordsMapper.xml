@@ -15,11 +15,19 @@
   </resultMap>
 
     <select id="getSensitiveWords" resultMap="sensitiveWords">
-        select * from sensitive_words where task_ID = #{taskId}
+        select * from sensitive_words where task_ID = #{taskId} order by sw_time DESC
     </select>
 
     <insert id="insertSensitiveWords" parameterType="cn.boood.fireeye.mybatis.entity.SensitiveWords">
         insert into sensitive_words(task_ID,sw_ID,sw_words,sw_url,sw_content,sw_time)
         values(#{sensitiveWords.taskId},#{sensitiveWords.swId},#{sensitiveWords.swWords},#{sensitiveWords.swUrl},#{sensitiveWords.swContent},#{sensitiveWords.swTime})
     </insert>
+
+    <select id="countByTaskId" resultType="int" >
+        select count(*) from sensitive_words where task_ID = #{taskId}
+    </select>
+
+    <delete id="delByTaskId">
+        delete from sensitive_words where task_ID = #{taskId}
+    </delete>
 </mapper>

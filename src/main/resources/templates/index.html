@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta charset="utf-8"/>
+    <title>火眼敏感词</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/themes/bootstrap/easyui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/themes/icon.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+    <script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.easyui.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/easyui-lang-zh_CN.js}"></script>
+	<script type="text/javascript" th:src="@{/js/echarts.js}"></script>
+</head>
+<body class="easyui-layout" id="layout" style="visibility:hidden;">
+
+<div region="north" id="header">
+    <img th:src="@{/img/logo.png}" class="logo"/>
+    <div class="top-btns">
+        <span>欢迎您，管理员</span>
+        <a href="#" id="changepassword" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-lock'">修改密码</a>
+        <a href="#" id="signout" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-clear'">退出系统</a>
+    </div>
+</div>
+
+<div region="west" split="true" title="导航菜单" id="naver">
+    <div class="easyui-accordion" fit="true" id="navmenu">
+        <div title="概况">
+            <ul class="navmenu">
+                <li class="active"><a href="#">首页</a></li>
+            </ul>
+        </div>
+        <div title="任务管理">
+            <ul class="navmenu">
+                <li><a href="#" data-url="/system/newtask">新建任务</a></li>
+                <li><a href="#" data-url="/system/taskmanagement">任务管理</a></li>
+            </ul>
+        </div>
+        <div title="报表管理"></div>
+        <div title="系统管理"></div>
+        <div title="组件示例">
+            <ul class="navmenu">
+                <li><a href="#" data-url="html/demo01.html">锁定行和列</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div region="center" id="content">
+    <div class="easyui-tabs" fit="true" id="tt">
+
+        <div title="首页" iconCls="icon-ok">
+            <div class="easyui-accordion" data-options="fit:true">
+				<!--两个折叠栏-->
+                <div title="任务统计">
+                    <div class="flow-panel" style="text-align:center;">
+						<div id="statisticalchart" style="width: 600px;height:400px;"></div>
+						<script>
+                            var chartDom = document.getElementById('statisticalchart');
+                            var myChart = echarts.init(chartDom);
+                            var option;
+
+                            option = {
+                                title: {
+                                    text: '敏感词监测任务',
+                                    subtext: '统计',
+                                    left: 'center'
+                                },
+                                tooltip: {
+                                    trigger: 'item'
+                                },
+                                legend: {
+                                    orient: 'vertical',
+                                    left: 'left',
+                                },
+                                series: [
+                                    {
+                                        name: '监测数据',
+                                        type: 'pie',
+                                        radius: '50%',
+                                        data: [
+                                            {value: [[${one.count}]], name: "[[${one.name}]]"},
+                                            {value: [[${two.count}]], name: "[[${two.name}]]"},
+                                            {value: [[${three.count}]], name: "[[${three.name}]]"},
+                                            {value: [[${four.count}]], name: "[[${four.name}]]"},
+                                            {value: [[${five.count}]], name: "[[${five.name}]]"}
+                                        ],
+                                        emphasis: {
+                                            itemStyle: {
+                                                shadowBlur: 10,
+                                                shadowOffsetX: 0,
+                                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                            }
+                                        }
+                                    }
+                                ]
+                            };
+
+                            option && myChart.setOption(option);
+						</script>
+                    </div>
+                </div>
+
+                <div title="系统公告">
+                    <ul class="notice-list">
+                        <li>
+                            <span>这是一条系统公告系统公告系统公告系统公告系统公告系统公告系统公告系统公告系统公告</span>
+                            <span class="date">2015-10-30</span>
+                        </li>
+                        <li>
+                            <span>这是一条系统公告系统公告系统公告系统公告系统公告系统公告系统公告系统公告系统公告</span>
+                            <span class="date">2015-10-30</span>
+                        </li>
+                        <li>
+                            <span>这是一条很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的系统公告</span>
+                            <span class="date">2015-10-30</span>
+                        </li>
+                        <li>
+                            <span>这是一条系统公告系统公告系统公告系统公告系统公告系统公告系统公告系统公告系统公告</span>
+                            <span class="date">2015-10-30</span>
+                        </li>
+                        <li>
+                            <span>这是一条系统公告系统公告系统公告系统公告系统公告系统公告系统公告系统公告系统公告</span>
+                            <span class="date">2015-10-30</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--修改密码对胡框-->
+<div id="changpwddlg" class="easyui-dialog" title="修改密码" data-options="iconCls:'icon-save'"
+     style="width:350px;height:300px;padding:10px;" closed="true">
+    <div class="easyui-panel" style="padding:50px 50px">
+        <div style="margin-bottom:20px">
+            <input class="easyui-textbox" id="oldpassword" name="oldPassword" prompt="老密码" iconWidth="28"
+                   style="width:100%;height:34px;padding:10px;">
+        </div>
+        <div style="margin-bottom:20px">
+            <input class="easyui-textbox" id="newpassword" name="newPassword" prompt="新密码" iconWidth="28"
+                   style="width:100%;height:34px;padding:10px;">
+        </div>
+        <div>
+            <a href="javascript:void(O)" id="submitpwdbtn" class="easyui-linkbutton" iconCls="icon-add"
+               style="width: 80px">提交</a>
+            <a href="javascript:void(O)" id="cancelpwdbtn" class="easyui-linkbutton" iconCls="icon-clear"
+               style="margin-left:50px;width: 80px">取消</a>
+        </div>
+    </div>
+</div>
+
+<div region="south" id="footer">火眼敏感词监测系统 V1.0</div>
+
+<script type="text/javascript" th:src="@{/js/system/index.js}"></script>
+</body>
+</html>

@@ -17,6 +17,15 @@ public class WordsCache {
 
     private static List<String> words=new ArrayList<>();
 
+    /**
+     * 测试用数据
+     */
+    static {
+        words.add("天津");
+        words.add("市领导");
+        addWords(words);
+    }
+
     public static void addWords(List<String> list){
         words.addAll(list);
         wordTree=DFAUtil.createtWordTree(words);

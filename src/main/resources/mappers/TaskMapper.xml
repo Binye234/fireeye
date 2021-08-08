@@ -16,16 +16,31 @@
         insert into task (task_ID,task_name,task_time,task_url) values (#{taskInfo.taskId},#{taskInfo.taskName},#{taskInfo.taskTime},#{taskInfo.taskUrl})
     </insert>
 <!--    查询任务记录-->
-    <select id="getTaskInfos" parameterType="map" resultMap="task">
+    <select id="getTaskInfos"  resultMap="task">
         select * from task
         <where>
-            <if test="url != null and url != ''">
-                and task_url like concat('%',#{url},'%')
+            <if test="taskname != null and taskname != ''">
+                and task_name like concat('%',#{taskname},'%')
             </if>
-            <if test="name != null and name != ''">
-                and task_name like concat('%',#{name},'%')
+        </where>
+        order by task_time DESC
+    </select>
+
+    <select id="getTaskInfosCount"  resultType="int">
+        select count(*) from task
+        <where>
+            <if test="taskname != null and taskname != ''">
+                and task_name like concat('%',#{taskname},'%')
             </if>
         </where>
     </select>
 
+    <!--    查询最新5条任务记录-->
+    <select id="lastTaskInfos" resultMap="task">
+        select * from task ORDER BY task_time DESC LIMIT 5
+    </select>
+
+    <delete id="delByTaskIdAfter">
+        delete from task where task_ID = #{taskId}
+    </delete>
 </mapper>

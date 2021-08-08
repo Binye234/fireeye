@@ -4,13 +4,10 @@ import cn.boood.fireeye.cache.WordsCache;
 import cn.boood.fireeye.dao.SensitiveWordsMapper;
 import cn.boood.fireeye.dao.TaskMapper;
 import cn.boood.fireeye.dao.UserMapper;
-import cn.boood.fireeye.mybatis.entity.AdminUser;
-import cn.boood.fireeye.mybatis.entity.SensitiveWords;
 import cn.boood.fireeye.mybatis.entity.TaskInfo;
+import cn.boood.fireeye.spider.SpiderRun;
 import cn.boood.fireeye.utils.DFAUtil;
 import cn.boood.fireeye.utils.PublicUtil;
-import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.StrUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +24,8 @@ class FireEyeApplicationTests {
     UserMapper userMapper;
     @Autowired
     SensitiveWordsMapper sensitiveWordsMapper;
+    @Autowired
+    SpiderRun spiderRun;
     @Test
     void contextLoads()  {
         List<String> words=new ArrayList<>();
@@ -258,15 +257,8 @@ class FireEyeApplicationTests {
     }
     @Test
     void Test1(){
-        SensitiveWords words=new SensitiveWords("ef964842f33611eb85ab0a80ff2603de","ef964842f33611eb85ab0a80ff2603d9",
-                "测试1","https://www.hao123.com","test",new Date());
-        int i=sensitiveWordsMapper.insertSensitiveWords(words);
-
-        List<SensitiveWords> list=sensitiveWordsMapper.getSensitiveWords("ef964842f33611eb85ab0a80ff2603de");
-        for (SensitiveWords word: list){
-            System.out.println(word);
-        }
-        Assertions.assertNotNull(list);
+        taskMapper.delByTaskIdAfter("6c96c88488c045aaa891ecd4b8e11379");
+        sensitiveWordsMapper.delByTaskId("6c96c88488c045aaa891ecd4b8e11379");
     }
 
 }

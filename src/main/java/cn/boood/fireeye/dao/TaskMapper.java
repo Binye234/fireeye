@@ -20,8 +20,27 @@ public interface TaskMapper {
 
     /**
      * 查询任务记录
-     * @param params url name
+     * @param   name
      * @return
      */
-    List<TaskInfo> getTaskInfos(Map<String,Object> params);
+    List<TaskInfo> getTaskInfos(@Param("taskname") String name);
+
+    /**
+     * 得到查询的记录数
+     * @param name
+     * @return
+     */
+    int getTaskInfosCount(@Param("taskname") String name);
+    /**
+     * 查询最新5条任务记录
+     * @return
+     */
+    List<TaskInfo> lastTaskInfos();
+
+    /**
+     * 按id删除任务
+     * @param taskId
+     * @return
+     */
+    int delByTaskIdAfter(@Param("taskId") String taskId);
 }
