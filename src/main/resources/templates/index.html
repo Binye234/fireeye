@@ -34,8 +34,8 @@
         </div>
         <div title="任务管理">
             <ul class="navmenu">
-                <li><a href="#" data-url="/system/newtask">新建任务</a></li>
                 <li><a href="#" data-url="/system/taskmanagement">任务管理</a></li>
+                <li><a href="#" data-url="/system/taskshow">任务结果</a></li>
             </ul>
         </div>
         <div title="报表管理"></div>
@@ -103,28 +103,13 @@
                     </div>
                 </div>
 
-                <div title="系统公告">
+                <div title="运行中任务">
                     <ul class="notice-list">
-                        <li>
-                            <span>这是一条系统公告系统公告系统公告系统公告系统公告系统公告系统公告系统公告系统公告</span>
-                            <span class="date">2015-10-30</span>
+                        <li th:each="name:${names}">
+                            <span th:text="${name}"></span>
+                            <span class="date">运行</span>
                         </li>
-                        <li>
-                            <span>这是一条系统公告系统公告系统公告系统公告系统公告系统公告系统公告系统公告系统公告</span>
-                            <span class="date">2015-10-30</span>
-                        </li>
-                        <li>
-                            <span>这是一条很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的系统公告</span>
-                            <span class="date">2015-10-30</span>
-                        </li>
-                        <li>
-                            <span>这是一条系统公告系统公告系统公告系统公告系统公告系统公告系统公告系统公告系统公告</span>
-                            <span class="date">2015-10-30</span>
-                        </li>
-                        <li>
-                            <span>这是一条系统公告系统公告系统公告系统公告系统公告系统公告系统公告系统公告系统公告</span>
-                            <span class="date">2015-10-30</span>
-                        </li>
+
                     </ul>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 package cn.boood.fireeye.service;
 
 import cn.boood.fireeye.mybatis.entity.TaskInfo;
+import cn.boood.fireeye.vo.SensitiveWordsVo;
 import cn.boood.fireeye.vo.TaskInfoVo;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface TaskService {
      * @param name
      * @return
      */
-    public List<TaskInfoVo> getTasks(String name);
+    public List<TaskInfoVo> getTasks(String name,int page,int rows);
     /**
      * 得到按任务名查找总数
      * @param name
@@ -32,4 +33,18 @@ public interface TaskService {
      * @param taskId
      */
     public void deleteTask(String taskId);
+
+    /**
+     * 按任务id取敏感词记录
+     * @param taskId
+     * @return
+     */
+    public List<SensitiveWordsVo> getSensitiveWords(String taskId,int page,int rows);
+
+    /**
+     * 按任务id查找记录数
+     * @param taskId
+     * @return
+     */
+    public int getSensitiveWordsCount(String taskId);
 }

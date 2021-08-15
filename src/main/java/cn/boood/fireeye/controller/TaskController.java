@@ -4,6 +4,7 @@ import cn.boood.fireeye.mybatis.entity.TaskInfo;
 import cn.boood.fireeye.service.TaskService;
 import cn.boood.fireeye.utils.HttpUtils;
 import cn.boood.fireeye.utils.XSSUtil;
+import cn.boood.fireeye.vo.SensitiveWordsVo;
 import cn.boood.fireeye.vo.SystemMsg;
 import cn.boood.fireeye.vo.TaskInfoVo;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -38,19 +39,26 @@ public class TaskController {
      */
     @ResponseBody
     @PostMapping("/searchtask")
-    public Map FindTasks(String taskname) throws JsonProcessingException {
+    public Map FindTasks(String taskname,int page,int rows) throws JsonProcessingException {
         ObjectMapper mapper=new ObjectMapper();
         int count=taskService.getTasksCount(taskname);
         Map map=new HashMap();
         if(count==0){
             return null;
         }
-        List<TaskInfoVo> taskInfos=taskService.getTasks(taskname);
+        List<TaskInfoVo> taskInfos=taskService.getTasks(taskname,page,rows);
 
         map.put("total",count);
         map.put("rows",taskInfos);
         return map;
     }
+
+    /**
+     * 建新任务
+     * @param taskname
+     * @param taskurl
+     * @return
+     */
     @ResponseBody
     @PostMapping("/newtask")
     public SystemMsg CreateTask(@Param("taskname" ) String taskname, @Param("taskurl") String taskurl){
@@ -74,11 +82,31 @@ public class TaskController {
         msg.setMsg("任务建立成功");
         return msg;
     }
+
+    /**
+     * 删除任务
+     * @param taskId
+     * @return
+     */
     @ResponseBody
     @PostMapping("/deletetask")
     public String deleteTask(String taskId){
         taskService.deleteTask(taskId);
         return "true";
     }
+    @ResponseBody
+    @PostMapping("/bytaskid")
+    public Map getBySensitiveWordsId(String taskId,int page,int rows){
+        ObjectMapper mapper=new ObjectMapper();
+        int count=taskService.getSensitiveWordsCount(taskId);
+        Map map=new HashMap();
+        if(count==0){
+            return null;
+        }
+        List<SensitiveWordsVo> sensitiveWordsVos=taskService.getSensitiveWords(taskId,page,rows);
 
+        map.put("total",count);
+        map.put("rows",sensitiveWordsVos);
+        return map;
+    }
 }

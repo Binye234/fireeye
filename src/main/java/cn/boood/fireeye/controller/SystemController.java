@@ -1,5 +1,7 @@
 package cn.boood.fireeye.controller;
 
+        import cn.boood.fireeye.cache.TaskSpiderInfo;
+        import cn.boood.fireeye.cache.TasksCache;
         import cn.boood.fireeye.mybatis.entity.AdminUser;
         import cn.boood.fireeye.service.SystemService;
         import cn.boood.fireeye.utils.PublicUtil;
@@ -13,6 +15,7 @@ package cn.boood.fireeye.controller;
         import org.springframework.web.bind.annotation.RequestMapping;
         import org.springframework.web.bind.annotation.ResponseBody;
         import javax.servlet.http.HttpSession;
+        import java.util.ArrayList;
         import java.util.List;
 
 /**
@@ -37,17 +40,22 @@ public class SystemController {
         model.addAttribute("three",taskNums.get(2));
         model.addAttribute("four",taskNums.get(3));
         model.addAttribute("five",taskNums.get(4));
-
+        List<TaskSpiderInfo> list= TasksCache.getSpiderInfoList();
+        List<String> names=new ArrayList<>();
+        for (TaskSpiderInfo taskSpiderInfo : list){
+            names.add(taskSpiderInfo.getTaskInfo().getTaskName());
+        }
+        model.addAttribute("names",names);
         return "index";
     }
 
     /**
-     * 新建任务页
+     * 敏感词记录展示
      * @return
      */
-    @GetMapping("/newtask")
+    @GetMapping("/taskshow")
     public String newTask(){
-        return "html/newtask";
+        return "html/taskshow";
     }
 
     /**

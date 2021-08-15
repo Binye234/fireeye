@@ -1,0 +1,45 @@
+
+
+    <table class="easyui-datagrid" title="任务展示" fit="true" fitColumns="true"
+           method="post" toolbar="#toolbar2"
+           striped="true" rownumbers="true" pagination="true" remoteSort="false" id="sensitivewordstable" singleSelect="true">
+        <thead>
+        <tr>
+<!--            <th field="taskId" width="20" align="center" sortable="true">任务ID</th>-->
+<!--            <th field="swId" width="10" align="center" sortable="true">记录ID</th>-->
+            <th field="swWords" width="15" align="center" sortable="true">敏感词</th>
+            <th field="swUrl" width="15" align="center" sortable="true">所在URL</th>
+            <th field="swContent" width="20" align="center" sortable="true">摘要</th>
+            <th field="swTime" width="20" align="center" sortable="true">生成时间</th>
+        </tr>
+        </thead>
+    </table>
+    <!-- 数据表工具栏 -->
+    <div class="toolbar" id="toolbar2">
+        <div class="search-div">
+            <label>任务ID：</label>
+            <input id="sensitivewordstaskid" type="text" class="easyui-textbox"/>
+            <a href="#" id="sensitivewordssearch" class="easyui-linkbutton" iconCls="icon-search">确定</a>
+        </div>
+
+    </div>
+
+
+
+<script>
+
+    $(function () {
+        $("#sensitivewordstable").datagrid({
+            url: '/system/bytaskid',
+            queryParams: {taskId: ""},
+        });
+
+        $("#sensitivewordssearch").click(function () {
+            $('#sensitivewordstable').datagrid('loadData', {total: 0, rows: []});
+            var sensitivewordstaskid = $("#sensitivewordstaskid").val();
+            $("#sensitivewordstable").datagrid("load", {
+                taskId: sensitivewordstaskid
+            })
+        });
+    })
+</script>
