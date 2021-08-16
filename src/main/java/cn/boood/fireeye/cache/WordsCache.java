@@ -21,8 +21,6 @@ public class WordsCache {
      * 测试用数据
      */
     static {
-        words.add("天津");
-        words.add("市领导");
         addWords(words);
     }
 

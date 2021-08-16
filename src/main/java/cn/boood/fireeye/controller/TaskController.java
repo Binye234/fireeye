@@ -10,6 +10,8 @@ import cn.boood.fireeye.vo.TaskInfoVo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.ibatis.annotations.Param;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +30,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/system")
 public class TaskController {
+    private Logger logger=LoggerFactory.getLogger("TaskController");
     @Autowired
     private TaskService taskService;
 
@@ -77,6 +80,7 @@ public class TaskController {
         }
         String finalTaskname = taskname;
         String finalTaskurl = taskurl;
+        logger.info("用户新建任务:"+taskname);
         new Thread(()->taskService.insertTask(finalTaskname, finalTaskurl)).start();
         msg.setCode("200");
         msg.setMsg("任务建立成功");
@@ -104,7 +108,7 @@ public class TaskController {
             return null;
         }
         List<SensitiveWordsVo> sensitiveWordsVos=taskService.getSensitiveWords(taskId,page,rows);
-
+        logger.info("用户删除任务id:"+taskId);
         map.put("total",count);
         map.put("rows",sensitiveWordsVos);
         return map;

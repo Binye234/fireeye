@@ -6,6 +6,8 @@ import cn.boood.fireeye.utils.PublicUtil;
 import cn.boood.fireeye.vo.SystemMsg;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +29,7 @@ import java.io.ByteArrayOutputStream;
  */
 @Controller
 public class LoginController {
-
+    private Logger logger=LoggerFactory.getLogger("LoginController");
     @Autowired
     private DefaultKaptcha defaultKaptcha;
     @Autowired
@@ -81,6 +83,7 @@ public class LoginController {
 
         msg.setCode("200");
         msg.setMsg("/system/home");
+        logger.info("用户："+username+"登录成功");
         return msg;
     }
 

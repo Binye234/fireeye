@@ -12,8 +12,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.ResourceUtils;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.*;
 
 @SpringBootTest
@@ -256,9 +260,10 @@ class FireEyeApplicationTests {
         Assertions.assertNotNull(machall);
     }
     @Test
-    void Test1(){
-        taskMapper.delByTaskIdAfter("6c96c88488c045aaa891ecd4b8e11379");
-        sensitiveWordsMapper.delByTaskId("6c96c88488c045aaa891ecd4b8e11379");
+    void Test1() throws FileNotFoundException {
+//        String path = new File(ResourceUtils.getURL("classpath:").getPath());
+//        FileOutputStream fileOutputStream=new FileOutputStream(path);
+
     }
 
 }

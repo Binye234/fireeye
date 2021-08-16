@@ -7,6 +7,8 @@ package cn.boood.fireeye.controller;
         import cn.boood.fireeye.utils.PublicUtil;
         import cn.boood.fireeye.vo.TaskNum;
         import com.fasterxml.jackson.core.JsonProcessingException;
+        import org.slf4j.Logger;
+        import org.slf4j.LoggerFactory;
         import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.stereotype.Controller;
         import org.springframework.ui.Model;
@@ -26,6 +28,7 @@ package cn.boood.fireeye.controller;
 @Controller
 @RequestMapping("/system")
 public class SystemController {
+    private Logger logger= LoggerFactory.getLogger("SystemController");
     @Autowired
     private SystemService systemService;
     /**
@@ -76,6 +79,8 @@ public class SystemController {
     @ResponseBody
     @GetMapping("/signout")
     public String signOut(HttpSession session) throws JsonProcessingException {
+        AdminUser user = (AdminUser) session.getAttribute("user");
+        logger.info("用户："+user.getUsername()+"退出系统");
         session.invalidate();
         return "true";
     }
@@ -96,6 +101,8 @@ public class SystemController {
         }
         user.setPassword(PublicUtil.getMD5Hash(newPassword));
         systemService.changePassword(user);
+        logger.info("用户："+user.getUsername()+"成功修改密码");
         return "true";
     }
+
 }

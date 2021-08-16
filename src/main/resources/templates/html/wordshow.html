@@ -1,0 +1,55 @@
+<div class="easyui-accordion" data-options="fit:true">
+        <fieldset>
+            <legend>敏感词导入</legend>
+            <form id="wordupload" method="post" enctype="multipart/form-data" action="/system/uploadword">
+                <div title="敏感词导入" style="padding: 5px" data-options="iconCls:'icon-key'">
+                    <input class="easyui-validatebox" type="hidden" id="AttachGUID" name="AttachGUID" />
+                    <br />
+                    <input class="easyui-filebox" id="file_upload" name="file" style="width:300px" buttonText="请选择文件"/>
+                </div>
+            </form>
+            <div id="div_files"></div>
+            <a id="worduploadbtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'" >提交</a>
+            <a id="wordcleanbtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'" >清除</a>
+        </fieldset>
+    <h4>敏感词显示</h4>
+        <p>[[${word}]]</p>
+
+</div>
+
+<script>
+    $(function () {
+        $("#worduploadbtn").click(function () {
+            // $("#wordupload").submit();
+                var formData = new FormData($('#wordupload')[0]);
+                $.ajax({
+                    type: 'post',
+                    url: "/system/uploadword", //上传文件的请求路径必须是绝对路劲
+                    data: formData,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    success:function(data){
+                        if (data.code == "200") {
+                            location.reload();
+                        }else {
+                            alert("上传文件错误，请重新上传");
+                        }
+                    }
+                })
+
+        })
+
+        $("#wordcleanbtn").click(function () {
+            $.ajax({
+                type: "GET",
+                url: "/system/cleanwords",
+                success: function (data) {
+                    if (data.code == "201") {
+                        location.reload();
+                    }
+                }
+            });
+        })
+    })
+</script>
