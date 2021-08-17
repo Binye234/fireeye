@@ -28,7 +28,7 @@ package cn.boood.fireeye.controller;
 @Controller
 @RequestMapping("/system")
 public class SystemController {
-    private Logger logger= LoggerFactory.getLogger("SystemController");
+    static private Logger logger= LoggerFactory.getLogger("SystemController");
     @Autowired
     private SystemService systemService;
     /**

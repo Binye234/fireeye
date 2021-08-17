@@ -29,7 +29,7 @@ import java.io.ByteArrayOutputStream;
  */
 @Controller
 public class LoginController {
-    private Logger logger=LoggerFactory.getLogger("LoginController");
+    static private Logger logger=LoggerFactory.getLogger("LoginController");
     @Autowired
     private DefaultKaptcha defaultKaptcha;
     @Autowired

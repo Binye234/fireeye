@@ -30,7 +30,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/system")
 public class TaskController {
-    private Logger logger=LoggerFactory.getLogger("TaskController");
+    static private Logger logger=LoggerFactory.getLogger("TaskController");
     @Autowired
     private TaskService taskService;
 
