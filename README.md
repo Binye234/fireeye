@@ -6,4 +6,6 @@ html静态为主要内容的效果最佳，可以有效匹配出敏感词内容�
 
 
 ## 使用方法
-
+![image](https://github.com/Binye234/fireeye/blob/master/image/QQ%E6%88%AA%E5%9B%BE20210816165131.jpg)
+![image](https://github.com/Binye234/fireeye/blob/master/image/QQ%E6%88%AA%E5%9B%BE20210816165220.jpg)
+![image](https://github.com/Binye234/fireeye/blob/master/image/QQ%E6%88%AA%E5%9B%BE20210816165306.jpg)
