@@ -53,18 +53,22 @@ public class WordCacheController {
 
 //        File dest = new File( "d:\\upload\\"+ PublicUtil.getUUID()+".txt");
         File dest = new File( wordPath+ PublicUtil.getUUID()+".txt");
+        BufferedReader bufferedReader=null;
         try {
             file.transferTo(dest);
-            BufferedReader bufferedReader=new BufferedReader(new FileReader(dest));
+            bufferedReader=new BufferedReader(new FileReader(dest));
             List<String> list=new ArrayList<>();
             bufferedReader.lines().forEach(a->list.add(a));
             WordsCache.addWords(list);
 //            LOGGER.info("上传成功");
+
             msg.setCode("200");
             msg.setMsg("文件上传成功");
             return msg;
         } catch (IOException e) {
 //            LOGGER.error(e.toString(), e);
+        }finally {
+            bufferedReader.close();
         }
         msg.setCode("400");
         msg.setMsg("上传失败，请选择文件");
